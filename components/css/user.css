@@ -1,0 +1,25 @@
+#buttonMenu1 {
+  color: #009688;
+}
+
+h5 {
+  color: #0000008a;
+}
+
+p {
+color: #0000008a; 
+font-size: 13px;
+}
+
+#fitness_img{
+  width: 220px;
+  height: 450px;
+}
+
+#mdbimg {
+  background-color: #009688;
+}
+
+#mdbCard {
+  margin-left: 10px;
+}
