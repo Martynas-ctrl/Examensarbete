@@ -10,6 +10,7 @@ const USERS_QUERY = gql`
       height
       weight
       total
+      goal
       createdAt
     }
   }

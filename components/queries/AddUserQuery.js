@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const ADD_USER = gql`
-  mutation UpdateUser($fullName: String!, $gender: String!, $age: Int!, $height: Int!, $weight: Int!, $total: Int!, $protein: Int, $carbs: Int, $fat: Int){
+  mutation UpdateUser($fullName: String!, $gender: String!, $age: Int!, $height: Int!, $weight: Int!, $total: Int!, $protein: Int, $carbs: Int, $fat: Int, $goal: String){
     __typename
     createUserInfo(data: {
       fullName: $fullName, 
@@ -12,7 +12,8 @@ const ADD_USER = gql`
       total: $total,
       protein: $protein,
       carbs: $carbs,
-      fat: $fat
+      fat: $fat,
+      goal: $goal,
       }) {
         id
       }

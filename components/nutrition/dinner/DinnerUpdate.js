@@ -1,11 +1,11 @@
 import { React, useState } from 'react';
-import { Modal, Button } from 'react-bootstrap';
+import { Modal, Form, Button } from 'react-bootstrap';
 import { useMutation } from '@apollo/client';
 import UPDATE_NUTRITION from '../dinner/dinnerQueries/DinnerUpdateQuery';
 
 function DinnerUpdate(props) { 
   let foodName, protein, carbs, fat;
-  const id = props.id;
+  let id = props.id;
   
   const [updateNutrition] = useMutation(UPDATE_NUTRITION);
   const [showModal, setShow] = useState(false);
@@ -31,35 +31,39 @@ function DinnerUpdate(props) {
         <Button className="btn_edit" onClick={formShow}><i class='far fa-edit'></i>Edit</Button>
         <Modal show={showModal} backdrop="static" keyboard={false} onHide={formClose}>
           <Modal.Header closeButton>
-            <Modal.Title>UPDATE DINNER FORM</Modal.Title>
+            <Modal.Title style={{color: "#009688"}}>UPDATE DINNER</Modal.Title>
           </Modal.Header>
           <Modal.Body className='modalContainer'>
-            <form onSubmit={updateDinner}>
-              <div className="name_Container">
-                <label>Food Name</label>
-                <p>It will contain the name of the food</p>
-                <input type="text" placeholder="Name" ref={ value => foodName = value} />
-              </div>
-              <div className="name_Container">
-                  <label>Protein</label>  
-                  <p>It will contain the protein intake of your food</p>                   
-                  <input type="text" aria-label="Dinners's protein" placeholder="Protein" ref={ value => protein = value}/>
-              </div>
-              <div className="name_Container">
-                  <label>Carbs</label>  
-                  <p>It will contain the carbs intake of your food</p>                   
-                  <input type="text"  aria-label="Dinners's carbs" placeholder="Carbs" ref={ value => carbs = value}/>
-              </div>
-              <div className="name_Container">
-                  <label>Fat</label>  
-                  <p>It will contain the fat intake of your food</p>                   
-                  <input type="text"  aria-label="Dinners's fat" placeholder="Fat" ref={ value => fat = value}/>
-              </div>
-            </form>
+            <Form onSubmit={updateDinner}>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" placeholder="Name" ref={ value => foodName = value} />
+                <Form.Text className="text-muted">
+                  <p style={{color: '#009688', fontSize: '0.75rem'}}>Update food for dinner</p>
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" placeholder="Protein" ref={ value => protein = value} />
+                <Form.Text className="text-muted">
+                  <p style={{color: '#009688', fontSize: '0.75rem'}}>Update protein for dinner</p>
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" placeholder="Carbs" ref={ value => carbs = value} />
+                <Form.Text className="text-muted">
+                  <p style={{color: '#009688', fontSize: '0.75rem'}}>Update carbs for dinner</p>
+                </Form.Text>
+              </Form.Group>
+              <Form.Group controlId="formBasicEmail">
+                <Form.Control type="text" placeholder="Fat" ref={ value => fat = value} />
+                <Form.Text className="text-muted">
+                  <p style={{color: '#009688', fontSize: '0.75rem'}}>Update fat for dinner</p>
+                </Form.Text>
+              </Form.Group>
+            </Form>
           </Modal.Body>
           <Modal.Footer>
-            <button id="cancel_button" className="btn btn-primary" onClick={formClose}>Cancel</button>
-            <button type="submit" className="btn btn-primary" onClick={updateDinner}>Update Dinner</button>
+            <Button variant="primary" type="submit" onClick={formClose}>Cancel</Button>
+            <Button variant="primary" type="submit" onClick={updateDinner}>Update Nutrition</Button>
           </Modal.Footer>
         </Modal>
       </div>  

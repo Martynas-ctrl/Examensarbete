@@ -1,7 +1,7 @@
 import { gql } from '@apollo/client';
 
 const UPDATE_USER = gql`
-  mutation UpdateUser($fullName: String, $gender: String, $age: Int, $height: Int, $weight: Int, $total: Int, $id: ID){
+  mutation UpdateUser($fullName: String, $gender: String, $age: Int, $height: Int, $weight: Int, $total: Int, $goal: String, $id: ID){
     __typename
     updateUserInfo(
       where: { id: $id }
@@ -12,6 +12,7 @@ const UPDATE_USER = gql`
       height: $height,
       weight: $weight,
       total: $total,
+      goal: $goal,
       }) {
         id
       }

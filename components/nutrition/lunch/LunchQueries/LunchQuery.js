@@ -9,10 +9,6 @@ const NUTRITION_QUERY = gql`
       carbs
       fat
       totalCalories
-      nutritions {
-        id
-        totalCalories
-      }
     }
   }
 `;

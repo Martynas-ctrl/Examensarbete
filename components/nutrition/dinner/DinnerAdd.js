@@ -1,22 +1,8 @@
 import { React, useState } from 'react';
-import { gql, useMutation } from '@apollo/client';
-import { Modal, Button } from 'react-bootstrap'
+import { useMutation } from '@apollo/client';
+import { Modal, Form, Button } from 'react-bootstrap';
+import ADD_DINNER from './dinnerQueries/DinnerAddQuery';
 import NUTRITION_QUERY from '../dinner/dinnerQueries/DinnerQuery';
-
-const ADD_NUTRITION = gql`
-  mutation AddDinner($foodName: String!, $protein: Int!, $carbs: Int!, $fat: Int!, $totalCalories: Int){
-    __typename
-    createDinner(data: {
-      foodName: $foodName, 
-      protein: $protein,
-      carbs: $carbs,
-      fat: $fat,
-      totalCalories: $totalCalories,
-      }) {
-        id
-      }
-}
-`;
 
 function DinnerAdd() {
   let foodName, protein, carbs, fat;
@@ -24,7 +10,7 @@ function DinnerAdd() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true)
 
-  const [createDinner, { data }] = useMutation(ADD_NUTRITION, {
+  const [createDinner, { data }] = useMutation(ADD_DINNER, {
     update(cache, { data: { createDinner } }) {
       const data = cache.readQuery({ query: NUTRITION_QUERY });
       cache.writeQuery({
@@ -49,38 +35,42 @@ function DinnerAdd() {
 
   return (
     <div>
-      <Button variant="primary" onClick={handleShow}>+ New Nutriton</Button>
+      <Button variant="primary" onClick={handleShow}><i class="fas fa-plus-circle"></i> New Nutriton</Button>
       <Modal show={showModal} backdrop="static" keyboard={false} onHide={handleClose}>
         <Modal.Header closeButton>
-          <Modal.Title className="modal_title">ADD DINNER FORM</Modal.Title>
+          <Modal.Title style={{color: "#009688"}}>ADD DINNER</Modal.Title>
         </Modal.Header>
-        <Modal.Body className="modalContainer">
-          <form>
-            <div className="name_Container">
-              <label>Food Name</label>
-              <p>It will contain the name of the food</p>
-              <input type="text" placeholder="Name" ref={ value => foodName = value} />
-            </div>
-            <div className="name_Container">
-              <label>Protein</label>  
-              <p>It will contain the protein intake of your food</p>                   
-              <input type="text" aria-label="Dinners's protein" placeholder="Protein" ref={ value => protein = value}/>
-            </div>
-            <div className="name_Container">
-              <label>Carbs</label>  
-              <p>It will contain the carbs intake of your food</p>                   
-              <input type="text"  aria-label="Dinners's carbs" placeholder="Carbs" ref={ value => carbs = value}/>
-            </div>
-            <div className="name_Container">
-              <label>Fat</label>  
-              <p>It will contain the fat intake of your food</p>                   
-              <input type="text" aria-label="Dinners's fat" placeholder="Fat" ref={ value => fat = value}/>
-            </div>
-          </form>
+        <Modal.Body className='modalContainer'>
+          <Form onSubmit={addDinner}>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control type="text" placeholder="Name" ref={ value => foodName = value} />
+              <Form.Text className="text-muted">
+                <p style={{color: '#009688', fontSize: '0.75rem'}}>Add food for dinner</p>
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control type="text" placeholder="Protein" ref={ value => protein = value} />
+              <Form.Text className="text-muted">
+                <p style={{color: '#009688', fontSize: '0.75rem'}}>Add protein for dinner</p>
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control type="text" placeholder="Carbs" ref={ value => carbs = value} />
+              <Form.Text className="text-muted">
+                <p style={{color: '#009688', fontSize: '0.75rem'}}>Add carbs for dinner</p>
+              </Form.Text>
+            </Form.Group>
+            <Form.Group controlId="formBasicEmail">
+              <Form.Control type="text" placeholder="Fat" ref={ value => fat = value} />
+              <Form.Text className="text-muted">
+                <p style={{color: '#009688', fontSize: '0.75rem'}}>Add fat for dinner</p>
+              </Form.Text>
+            </Form.Group>
+          </Form>
         </Modal.Body>
         <Modal.Footer>
-          <button id="cancel_button" className="btn btn-primary" onClick={handleClose}>Cancel</button>
-          <button type="submit" className="btn btn-primary" onClick={addDinner}>Add Dinner</button>
+          <Button variant="primary" type="submit" onClick={handleClose}>Cancel</Button>
+          <Button variant="primary" type="submit" onClick={addDinner}>Add Nutrition</Button>
         </Modal.Footer>
       </Modal>
     </div>          

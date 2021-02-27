@@ -1,10 +1,10 @@
-import { React, useState, useEffect } from 'react'
+import { React, useState, useEffect } from 'react';
 import { useQuery } from '@apollo/client';
 import { Progress } from 'antd';
 import DinnerInfo from './DinnerInfo';
 import AddDinner from '../dinner/DinnerAdd';
 import NUTRITION_QUERY from '../dinner/dinnerQueries/DinnerQuery';
-import '../lunch/lunchButton.css';
+import '../lunch/CssLunch.css/lunchButton.css';
 
 function Dinner (props) {
 
@@ -13,11 +13,11 @@ function Dinner (props) {
 
     const getDatas = () => {
       if(loading) 
-          return <p>Loading user...</p>
+          return <p>Loading dinner...</p>
       if(error)
-          return <p>Error ...</p>
+          return <p>Error...</p>
       if(data) {
-          setDinners(data.dinners)
+          setDinners(data.dinners);
       }
     } 
 
@@ -32,14 +32,14 @@ function Dinner (props) {
     const totalFat = dinners.reduce((a,v) =>  a = a + v.fat , 0 );
 
     //Total nutrition per breakfast in percent
-    const ProteinDailyNeed =  Math.floor(dailyIntakeForUser  * 0.3 / 4);
-    const CarbsDailyNeed =  Math.floor(dailyIntakeForUser  * 0.4 / 4);
-    const FatDailyNeed =  Math.floor(dailyIntakeForUser  * 0.3 / 9);
-    const consumedProteinDinner = Math.floor(totalProtein / ProteinDailyNeed * 100);
-    const consumedCarbsDinner = Math.floor(totalCarbs / CarbsDailyNeed * 100);
-    const consumedFatDinner = Math.floor(totalFat / FatDailyNeed * 100);
+    const ProteinDailyNeed =  Math.round(dailyIntakeForUser  * 0.3 / 4);
+    const CarbsDailyNeed =  Math.round(dailyIntakeForUser  * 0.4 / 4);
+    const FatDailyNeed =  Math.round(dailyIntakeForUser  * 0.3 / 9);
+    const consumedProteinDinner = Math.round(totalProtein / ProteinDailyNeed * 100);
+    const consumedCarbsDinner = Math.round(totalCarbs / CarbsDailyNeed * 100);
+    const consumedFatDinner = Math.round(totalFat / FatDailyNeed * 100);
 
-    const consumedDinnerCalories = Math.floor(totalscoresDinner / dailyIntakeForUser * 100);
+    const consumedDinnerCalories = Math.round(totalscoresDinner / dailyIntakeForUser * 100);
 
     {props.changeProteinDinner(totalProtein)}
     {props.changeCarbsDinner(totalCarbs)}
@@ -57,20 +57,20 @@ function Dinner (props) {
               <h3 className='title'>Dinner</h3>  
             </div>
             <table class="table">
-            <thead>
-            <tr>
-              <th scope="col">Food</th>
-              <th scope="col">Protein</th>
-              <th scope="col">Carbs</th>
-              <th scope="col">Fat</th>
-              <th scope="col">Total Calorie Intake</th>
-              <th scope="col"><AddDinner/></th>
-            </tr>
-          </thead>
-          <tbody>
-              {dinners.map(dinner => <DinnerInfo key={dinner.id} dinner={dinner} />)}   
-          </tbody>
-          </table>
+              <thead>
+                <tr>
+                  <th scope="col">Food</th>
+                  <th scope="col">Protein</th>
+                  <th scope="col">Carbs</th>
+                  <th scope="col">Fat</th>
+                  <th scope="col">Total Calorie Intake</th>
+                  <th scope="col"><AddDinner/></th>
+                </tr>
+              </thead>
+              <tbody>
+                  {dinners.map(dinner => <DinnerInfo key={dinner.id} dinner={dinner} />)}   
+              </tbody>
+            </table>
           </div>
           <div style={{ width: 870 }}>
             <h6>Daily cosumed calories {totalscoresDinner} / {dailyIntakeForUser}</h6>
@@ -87,24 +87,3 @@ function Dinner (props) {
   }
     
 export default Dinner;
-
-// const [totalData , setTotalData] = useState()
- // const breakfastlunch = propsfromnutrition - totalscoresLunch;
-  //  const all = dailyIntake - totalscoresDinner;
-   // if(snacks === true) {
-    //   return (<div>
-        
-    //     <Button className="dinnerButton2" onClick={showSnacks}>Dinner</Button>
-    //     <Snacks dailyIntake={breakfastLunchDinner}  dailyIntakeForUser={dailyIntakeForUser} changeTotalData={totalData => setTotalData(totalData)} />
-    //     </div>)
-    
-    // }
-
-     // {nutritionLunches.map(nutrition => <DinnerInfo key={nutrition.id} nutrition={nutrition} tot={totalscoresLunch} />)} 
-                          {/* <Snacks dailyIntake={breakfastLunchDinner}  dailyIntakeForUser={dailyIntakeForUser} changeTotalData={totalData => setTotalData(totalData)} /> */}
-
-{/* <Button className="snacksButton" onClick={showSnacks}>Snack</Button> */}
-
- {/* {props.changeTotalDataz(totalData)} */}
-
- // const [snacks, setSnacks] = useState(false);
